@@ -23,6 +23,7 @@ class Topside(Thread):
         power = 1.0
         pygame.init()
 
+        screen = pygame.display.set_mode((300, 300))
         clock = pygame.time.Clock()
         while True:
             for event in pygame.event.get():
@@ -35,16 +36,20 @@ class Topside(Thread):
 
                     if event.key == pygame.K_w:
                         #self.throttle_servos(power, power)
+                        print("W")
                         self.mc_socket.send(b"W")
                     
                     if event.key == pygame.K_s:
                         #self.throttle_servos(-power, -power
+                        print("S")
                         self.mc_socket.send(b"S")
                     
                     if event.key == pygame.K_a:
+                        print("A")
                         self.mc_socket.send(b"A")
                     
                     if event.key == pygame.K_d:
+                        print("D")
                         self.mc_socket.send(b"D")
                     
                     if event.key == pygame.K_k:
