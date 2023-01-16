@@ -1,6 +1,7 @@
 import socket
 from threading import Thread
-
+import cv2
+import base64
 
 class MockController():
 
@@ -35,6 +36,8 @@ class BottomSide(Thread):
 
         self.mc_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.mc_socket.bind((self.host, self.mc_port))
+        
+        self.cam = cv2.VideoCapture(0)
     
     def run(self):
         self.mc_socket.listen(1)
@@ -72,10 +75,33 @@ class BottomSide(Thread):
             if data == "KD":
                 if power-0.1 <= 0.0:
                     power -=0.1
-            
+            print()
             print(controller.pwm1, controller.pwm2, power)
+            print()
+
+            picture = self.take_picture()
+            encoded = self.encode_image(picture)
+
+            self.mc_socket.send(bytes(encoded))
+            print('took image')
 
         connection.close()
+    
+    def encode_image(self, img):
+        encoded = cv2.imencode('.jpg', img)[1]
+        stringData = base64.base64encode(encoded).decode('utf-8')
+        b64_src = 'data"image/jpeg;base64'
+
+        stringData = b64_src + stringData
+        return stringData
+    
+    def take_picture(self):
+        result, img = self.cam.read()
+
+        if result:
+            return img
+        else:
+            return None
     
 def start_server(IP):
     #IP = 'PUT SERVER IP (RASPI) HERE'
