@@ -66,7 +66,7 @@ class Topside(Thread):
                     elif event.key == pygame.K_DOWN:
                         if power-0.1 > 0.0:
                             self.mc_socket.send(b"KD")
-                            power -= 0.01
+                            power -= 0.1
                 
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_w or event.key == pygame.K_a or event.key == pygame.K_s or event.key == pygame.K_d:

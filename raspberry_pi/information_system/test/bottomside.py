@@ -22,9 +22,10 @@ class BottomSide(Thread):
         on = True
 
         while on:
-            data = connection.recv(self.buffer_size)
+            data = connection.recv(self.buffer_size).decode()
             if not data: on = False
             print(data)
+
         connection.close()
     
 def start_server(IP):
