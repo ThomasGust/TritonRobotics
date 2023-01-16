@@ -35,11 +35,9 @@ class Topside(Thread):
                 if event.type == pygame.KEYDOWN:
 
                     if event.key == pygame.K_w:
-                        #self.throttle_servos(power, power)
                         self.mc_socket.send(b"W")
                     
                     if event.key == pygame.K_s:
-                        #self.throttle_servos(-power, -power
                         self.mc_socket.send(b"S")
                     
                     if event.key == pygame.K_a:
