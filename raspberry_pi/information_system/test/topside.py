@@ -5,7 +5,7 @@ import sys
 
 class Topside(Thread):
 
-    def __init__(self, bottomside, bottomside_video, port=5005, video_port=3000, buffer_size=1024):
+    def __init__(self, bottomside, bottomside_video, port=5005, video_port=8000, buffer_size=1024):
         Thread.__init__(self)
 
         self.bottomside = bottomside

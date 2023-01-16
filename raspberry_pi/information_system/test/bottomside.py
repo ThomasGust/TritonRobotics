@@ -28,7 +28,7 @@ class MockController():
 
 class BottomSide(Thread):
 
-    def __init__(self, host, video_host, mc_port=5005, video_port=3000, buffer_size=1024):
+    def __init__(self, host, video_host, mc_port=5005, video_port=9000, buffer_size=1024):
         Thread.__init__(self)
         self.host = host
         self.mc_port = mc_port
