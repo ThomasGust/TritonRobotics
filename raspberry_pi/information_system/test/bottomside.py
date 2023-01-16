@@ -25,7 +25,6 @@ class BottomSide(Thread):
             data = connection.recv(self.buffer_size)
             if not data: on = False
             print(data)
-            connection.send(data)
         connection.close()
     
 def start_server(IP):
