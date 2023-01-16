@@ -71,6 +71,9 @@ class Topside(Thread):
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_w or event.key == pygame.K_a or event.key == pygame.K_s or event.key == pygame.K_d:
                         self.mc_socket.send(b"P")
+                
+                img = self.mc_socket.recv(self.bs)
+                print(img)
 
             clock.tick(60)
 
