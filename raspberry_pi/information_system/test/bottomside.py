@@ -28,7 +28,7 @@ class MockController():
 
 class BottomSide(Thread):
 
-    def __init__(self, host, video_host, mc_port=5005, video_port=5006, buffer_size=1024):
+    def __init__(self, host, mc_port=5005, buffer_size=1024):
         Thread.__init__(self)
         self.host = host
         self.mc_port = mc_port
@@ -37,6 +37,7 @@ class BottomSide(Thread):
         self.mc_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.mc_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.mc_socket.bind((self.host, self.mc_port))
+        
         self.cam = cv2.VideoCapture(0)
     
     def run(self):
@@ -51,7 +52,6 @@ class BottomSide(Thread):
         controller = MockController()
         while on:
             data = connection.recv(self.buffer_size).decode()
-
             if not data: on = False
 
             if data == "W":
@@ -79,6 +79,12 @@ class BottomSide(Thread):
             print()
             print(controller.pwm1, controller.pwm2, power)
             print()
+
+            picture = self.take_picture()
+            encoded = self.encode_image(picture)
+            #print(encoded)
+            connection.send(b'data:image/jpeg;base64')
+            print('took image')
 
         connection.close()
     
@@ -121,6 +127,5 @@ def start_server(IP):
 
 if __name__ == "__main__":
     ip_addr = input("Please put server ip address here: ")
-    vip_addr = input("Please put a video server ip address here: ")
-    bottom = BottomSide(ip_addr, vip_addr)
+    bottom = BottomSide(ip_addr)
     bottom.run()

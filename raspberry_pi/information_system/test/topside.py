@@ -5,7 +5,7 @@ import sys
 
 class Topside(Thread):
 
-    def __init__(self, bottomside, bottomside_video, port=5005, video_port=5006, buffer_size=1024):
+    def __init__(self, bottomside, port=5005, buffer_size=1024):
         Thread.__init__(self)
 
         self.bottomside = bottomside
@@ -14,7 +14,6 @@ class Topside(Thread):
 
         self.mc_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.mc_socket.connect((self.bottomside, self.port))
-
     
     def run(self):
         msg = b'THIS IS A SIMPLE TEST MESSAGE'
@@ -77,6 +76,5 @@ class Topside(Thread):
 
 if __name__ == "__main__":
     ip_addr = input("Please provide an IP address for the server: ")
-    vip_addr = input("Please provide an IP address for the video server: ")
-    top = Topside(ip_addr, vip_addr)
+    top = Topside(ip_addr)
     top.run()
