@@ -11,7 +11,7 @@ class BottomSide(Thread):
         self.buffer_size = buffer_size
 
         self.mc_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.mc_socket.bind((self.host, self.port))
+        self.mc_socket.bind((self.host, self.mc_port))
     
     def run(self):
         self.mc_socket.listen(1)
