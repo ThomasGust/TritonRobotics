@@ -128,5 +128,5 @@ def start_server(IP):
 if __name__ == "__main__":
     ip_addr = input("Please put server ip address here: ")
     vip_addr = input("Please put a video server ip address here: ")
-    bottom = BottomSide(ip_addr)
+    bottom = BottomSide(ip_addr, vip_addr)
     bottom.run()

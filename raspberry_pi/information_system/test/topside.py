@@ -85,5 +85,5 @@ class Topside(Thread):
 if __name__ == "__main__":
     ip_addr = input("Please provide an IP address for the server: ")
     vip_addr = input("Please provide an IP address for the video server: ")
-    top = Topside(ip_addr)
+    top = Topside(ip_addr, vip_addr)
     top.run()
