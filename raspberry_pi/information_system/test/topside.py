@@ -59,13 +59,13 @@ class Topside(Thread):
                         sys.exit()
                     
                     if event.key == pygame.K_UP:
-                        if power+0.002 < 1.0:
-                            power += 0.002
+                        if power+0.1 < 1.0:
+                            power += 0.1
                             print(power)
                     
                     if event.key == pygame.K_DOWN:
-                        if power-0.002 > 0.0:
-                            power -= 0.002
+                        if power-0.1 > 0.0:
+                            power -= 0.01
                             print(power)
                 
                 elif event.type == pygame.KEYUP:
