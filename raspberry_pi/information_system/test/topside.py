@@ -1,5 +1,7 @@
 import socket
 from threading import Thread
+import pygame
+import sys
 
 class Topside(Thread):
 
@@ -17,21 +19,51 @@ class Topside(Thread):
         msg = b'THIS IS A SIMPLE TEST MESSAGE'
 
         self.mc_socket.send(msg)
-        data = self.mc_socket.recv(self.bs)
-        self.mc_socket.close()
+        
+        power = 1.0
+        pygame.init()
 
-def start_client(IP):
-    #IP = 'PUT IP ADDRESS OF PC HERE'
-    PORT = 5005
-    BS = 1024
+        clock = pygame.time.Clock()
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    power = 0.0
+                    pygame.quit()
+                    sys.exit()
+                
+                if event.type == pygame.KEYDOWN:
 
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.connect((IP, PORT))
-    sock.send(b"CLIENT: THIS IS A SIMPLE TEST TO SEE IF I CAN SEND DATA BETWEEN RASPBERRY PI AND COMPUTER OVER ETHERNET")
-    data = sock.recv(BS)
-    sock.close()
-
-    print(f"received: {data}")
+                    if event.key == pygame.K_w:
+                        #self.throttle_servos(power, power)
+                        self.mc_socket.send(b"W")
+                    
+                    if event.key == pygame.K_s:
+                        #self.throttle_servos(-power, -power
+                        self.mc_socket.send(b"S")
+                    
+                    if event.key == pygame.K_a:
+                        self.mc_socket.send(b"A")
+                    
+                    if event.key == pygame.K_d:
+                        self.mc_socket.send(b"D")
+                    
+                    if event.key == pygame.K_k:
+                        self.mc_socket.send(b"K")
+                        self.power = 0.0
+                        self.mc_socket.close()
+                        pygame.quit()
+                        sys.exit()
+                    
+                    if event.key == pygame.K_UP:
+                        if power+0.002 < 1.0:
+                            power += 0.002
+                            print(power)
+                    
+                    if event.key == pygame.K_DOWN:
+                        if power-0.002 > 0.0:
+                            power -= 0.002
+                            print(power)
+            clock.tick(60)
 
 if __name__ == "__main__":
     ip_addr = input("Please provide an IP address for the server: ")
