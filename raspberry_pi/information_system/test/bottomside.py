@@ -22,7 +22,7 @@ class BottomSide(Thread):
         on = True
 
         while on:
-            data = self.mc_socket.recv(self.buffer_size)
+            data = connection.recv(self.buffer_size)
             if not data: on = False
             print(data)
             connection.send(data)
