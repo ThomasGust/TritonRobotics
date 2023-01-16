@@ -13,7 +13,7 @@ class BottomSide(Thread):
         self.mc_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.mc_socket.bind((self.host, self.port))
     
-    def handle_client(self):
+    def run(self):
         self.mc_socket.listen(1)
         connection, address = self.mc_socket.accept()
 
