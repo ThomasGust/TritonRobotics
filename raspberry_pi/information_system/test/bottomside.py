@@ -2,6 +2,31 @@ import socket
 from threading import Thread
 
 
+class MockController():
+
+    def __init__(self, p1=27, p2=22, forw=1900, stop=1500, reve=1100, init=1500):
+
+        self.setup(self.p1, self.p2)
+
+        self.FORW = forw
+        self.STOP = stop
+        self.REVE = reve
+        self.INIT = init
+
+        self.DIFF = self.FORW - self.REVE
+
+        self.pwm1 = 1500
+        self.pwm2 = 1500
+    
+    def throttle_servos(self, power1, power2):
+        assert power1 >= -1.00 and power1 <= 1.00 and power2 >= -1.00 and power2 <= 1.00
+
+        diff1 = int(power1/2*self.DIFF)
+        diff2 = int(power1/2*self.DIFF)
+
+        self.pwm1 = self.STOP+diff1
+        self.pwm2 = self.STOP+diff2
+
 class BottomSide(Thread):
 
     def __init__(self, host, mc_port=5005, buffer_size=1024):
@@ -21,10 +46,36 @@ class BottomSide(Thread):
 
         on = True
 
+        power = 1.0
+        controller = MockController()
         while on:
             data = connection.recv(self.buffer_size).decode()
             if not data: on = False
-            print(data)
+
+            if data == "W":
+                controller.throttle_servos(power, power)
+
+            if data == "A":
+                controller.throttle_servos(-power, power)
+
+            if data == "S":
+                controller.throttle_servos(-power, -power)
+                
+            if data == "D":
+                controller.throttle_servos(power, -power)
+                
+            if data == "P":
+                controller.throttle_servos(controller.STOP, controller.STOP)
+                
+            if data == "KU":
+                if power+0.1 <= 1.0:
+                    power += 1
+                
+            if data == "KD":
+                if power-0.1 <= 0.0:
+                    power -=0.1
+            
+            print(controller.pwm1, controller.pwm2, power)
 
         connection.close()
     
