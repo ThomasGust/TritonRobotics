@@ -15,6 +15,7 @@ class Topside(Thread):
         self.mc_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.mc_socket.connect((self.bottomside, self.port))
 
+        _ = input("ENTER WHEN READY TO PROCEED: ")
         self.video_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         #self.video_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.video_socket.bind((bottomside_video, video_port))
