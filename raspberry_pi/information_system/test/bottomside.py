@@ -35,14 +35,8 @@ class BottomSide(Thread):
         self.buffer_size = buffer_size
 
         self.mc_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        #self.mc_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.mc_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.mc_socket.bind((self.host, self.mc_port))
-        _ = input("ENTER WHEN READY TO PROCEED")
-        self.video_port = video_port
-
-        self.video_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.video_socket.connect((video_host, self.video_port))
-        
         self.cam = cv2.VideoCapture(0)
     
     def run(self):
