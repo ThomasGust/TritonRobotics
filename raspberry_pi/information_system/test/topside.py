@@ -51,22 +51,22 @@ class Topside(Thread):
                     if event.key == pygame.K_d:
                         self.mc_socket.send(b"D")
                     
-                    if event.key == pygame.K_k:
+                    elif event.key == pygame.K_k:
                         self.mc_socket.send(b"K")
                         self.power = 0.0
                         self.mc_socket.close()
                         pygame.quit()
                         sys.exit()
                     
-                    if event.key == pygame.K_UP:
+                    elif event.key == pygame.K_UP:
                         if power+0.1 < 1.0:
+                            self.mc_socket.send(b"KU")
                             power += 0.1
-                            print(power)
                     
-                    if event.key == pygame.K_DOWN:
+                    elif event.key == pygame.K_DOWN:
                         if power-0.1 > 0.0:
+                            self.mc_socket.send(b"KD")
                             power -= 0.01
-                            print(power)
                 
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_w or event.key == pygame.K_a or event.key == pygame.K_s or event.key == pygame.K_d:
