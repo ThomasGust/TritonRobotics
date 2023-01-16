@@ -28,7 +28,7 @@ class MockController():
 
 class BottomSide(Thread):
 
-    def __init__(self, host, mc_port=5005, buffer_size=1024000):
+    def __init__(self, host, mc_port=5005, buffer_size=1024):
         Thread.__init__(self)
         self.host = host
         self.mc_port = mc_port
@@ -82,8 +82,7 @@ class BottomSide(Thread):
             picture = self.take_picture()
             encoded = self.encode_image(picture)
             print(encoded)
-
-            self.mc_socket.send(bytes(encoded, encoding='utf-8'))
+            self.mc_socket.send(b'{}'.format(encoded))
             print('took image')
 
         connection.close()

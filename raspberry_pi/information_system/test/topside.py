@@ -5,7 +5,7 @@ import sys
 
 class Topside(Thread):
 
-    def __init__(self, bottomside, port=5005, buffer_size=1024000):
+    def __init__(self, bottomside, port=5005, buffer_size=1024):
         Thread.__init__(self)
 
         self.bottomside = bottomside
