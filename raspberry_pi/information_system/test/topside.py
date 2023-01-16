@@ -36,20 +36,19 @@ class Topside(Thread):
 
                     if event.key == pygame.K_w:
                         #self.throttle_servos(power, power)
-                        print("W")
                         self.mc_socket.send(b"W")
                     
                     if event.key == pygame.K_s:
                         #self.throttle_servos(-power, -power
-                        print("S")
                         self.mc_socket.send(b"S")
                     
                     if event.key == pygame.K_a:
-                        print("A")
                         self.mc_socket.send(b"A")
                     
+                    if event.key == pygame.K_p:
+                        self.mc_socket.send(b"P")
+                    
                     if event.key == pygame.K_d:
-                        print("D")
                         self.mc_socket.send(b"D")
                     
                     if event.key == pygame.K_k:
@@ -68,6 +67,11 @@ class Topside(Thread):
                         if power-0.002 > 0.0:
                             power -= 0.002
                             print(power)
+                
+                elif event.type == pygame.KEYUP:
+                    if event.key == pygame.K_w or event.key == pygame.K_a or event.key == pygame.K_s or event.key == pygame.K_d:
+                        self.mc_socket.send(b"P")
+
             clock.tick(60)
 
 if __name__ == "__main__":
