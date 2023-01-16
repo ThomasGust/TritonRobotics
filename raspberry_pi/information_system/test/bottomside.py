@@ -17,7 +17,7 @@ class MockController():
         self.pwm2 = 1500
     
     def throttle_servos(self, power1, power2):
-        #assert power1 >= -1.00 and power1 <= 1.00 and power2 >= -1.00 and power2 <= 1.00
+        assert power1 >= -1.00 and power1 <= 1.00 and power2 >= -1.00 and power2 <= 1.00
 
         diff1 = int(power1/2*self.DIFF)
         diff2 = int(power2/2*self.DIFF)
@@ -63,7 +63,7 @@ class BottomSide(Thread):
                 controller.throttle_servos(power, -power)
                 
             if data == "P":
-                controller.throttle_servos(controller.STOP, controller.STOP)
+                controller.throttle_servos(0.0, 0.0)
                 
             if data == "KU":
                 if power+0.1 <= 1.0:
