@@ -28,7 +28,7 @@ class MockController():
 
 class BottomSide(Thread):
 
-    def __init__(self, host, mc_port=5005, video_port=3000, buffer_size=1024):
+    def __init__(self, host, video_host, mc_port=5005, video_port=3000, buffer_size=1024):
         Thread.__init__(self)
         self.host = host
         self.mc_port = mc_port
@@ -41,7 +41,7 @@ class BottomSide(Thread):
         self.video_port = video_port
 
         self.video_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.video_socket.connect((self.host, self.video_port))
+        self.video_socket.connect((video_host, self.video_port))
         
         self.cam = cv2.VideoCapture(0)
     
@@ -127,5 +127,6 @@ def start_server(IP):
 
 if __name__ == "__main__":
     ip_addr = input("Please put server ip address here: ")
+    vip_addr = input("Please put a video server ip address here: ")
     bottom = BottomSide(ip_addr)
     bottom.run()

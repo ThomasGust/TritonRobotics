@@ -5,7 +5,7 @@ import sys
 
 class Topside(Thread):
 
-    def __init__(self, bottomside, port=5005, video_port=3000, buffer_size=1024):
+    def __init__(self, bottomside, bottomside_video, port=5005, video_port=3000, buffer_size=1024):
         Thread.__init__(self)
 
         self.bottomside = bottomside
@@ -17,7 +17,7 @@ class Topside(Thread):
 
         self.video_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.video_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.video_socket.bind((self.bottomside, video_port))
+        self.video_socket.bind((bottomside_video, video_port))
     
     def run(self):
         self.video_socket.listen(1)
@@ -84,5 +84,6 @@ class Topside(Thread):
 
 if __name__ == "__main__":
     ip_addr = input("Please provide an IP address for the server: ")
+    vip_addr = input("Please provide an IP address for the video server: ")
     top = Topside(ip_addr)
     top.run()
