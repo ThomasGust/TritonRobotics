@@ -1,5 +1,6 @@
 import numpy as np
 import time
+import matplotlib.pyplot as plt
 print(np.__version__)
 
 import cv2
@@ -11,8 +12,8 @@ cam = cv2.VideoCapture(0)
 result, img = cam.read()
 
 if result:
-    cv2.imshow("test", img)
-    cv2.show()
+    plt.imshow(img)
+    plt.show()
     time.sleep(10)
     print("saved image")
 
