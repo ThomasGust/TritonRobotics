@@ -6,8 +6,6 @@ class MockController():
 
     def __init__(self, p1=27, p2=22, forw=1900, stop=1500, reve=1100, init=1500):
 
-        self.setup(self.p1, self.p2)
-
         self.FORW = forw
         self.STOP = stop
         self.REVE = reve
