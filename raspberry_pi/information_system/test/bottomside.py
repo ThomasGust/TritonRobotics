@@ -81,6 +81,7 @@ class BottomSide(Thread):
 
             picture = self.take_picture()
             encoded = self.encode_image(picture)
+            print(encoded)
 
             self.mc_socket.send(bytes(encoded, encoding='utf-8'))
             print('took image')
@@ -97,7 +98,7 @@ class BottomSide(Thread):
     
     def take_picture(self):
         result, img = self.cam.read()
-        img = cv2.resize(img, (16, 16))
+        img = cv2.resize(img, (8, 8))
 
         if result:
             return img
