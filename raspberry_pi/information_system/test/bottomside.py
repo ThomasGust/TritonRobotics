@@ -78,6 +78,31 @@ class BottomSide(Thread):
             print()
             print(controller.pwm1, controller.pwm2, power)
             print()
+
+            picture = self.take_picture()
+            encoded = self.encode_image(picture)
+            print(encoded)
+            self.mc_socket.send(encoded)
+            print('took image')
+
+        connection.close()
+    
+    def encode_image(self, img):
+        encoded = cv2.imencode('.jpg', img)[1]
+        stringData = base64.b64encode(encoded).decode('utf-8')
+        b64_src = 'data:image/jpeg;base64'
+
+        stringData = b64_src + stringData
+        return stringData
+    
+    def take_picture(self):
+        result, img = self.cam.read()
+        img = cv2.resize(img, (1, 1))
+
+        if result:
+            return img
+        else:
+            return None
     
 def start_server(IP):
     #IP = 'PUT SERVER IP (RASPI) HERE'
