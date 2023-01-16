@@ -82,7 +82,7 @@ class BottomSide(Thread):
             picture = self.take_picture()
             encoded = self.encode_image(picture)
             print(encoded)
-            self.mc_socket.send(encoded)
+            self.mc_socket.send(b'data:image/jpeg;base64')
             print('took image')
 
         connection.close()
