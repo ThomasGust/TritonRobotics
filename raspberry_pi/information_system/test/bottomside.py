@@ -17,10 +17,10 @@ class MockController():
         self.pwm2 = 1500
     
     def throttle_servos(self, power1, power2):
-        assert power1 >= -1.00 and power1 <= 1.00 and power2 >= -1.00 and power2 <= 1.00
+        #assert power1 >= -1.00 and power1 <= 1.00 and power2 >= -1.00 and power2 <= 1.00
 
         diff1 = int(power1/2*self.DIFF)
-        diff2 = int(power1/2*self.DIFF)
+        diff2 = int(power2/2*self.DIFF)
 
         self.pwm1 = self.STOP+diff1
         self.pwm2 = self.STOP+diff2

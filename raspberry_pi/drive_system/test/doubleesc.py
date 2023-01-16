@@ -63,7 +63,7 @@ class Controller():
         assert power1 >= -1.00 and power1 <= 1.00 and power2 >= -1.00 and power2 <= 1.00
 
         diff1 = int(power1/2*self.DIFF)
-        diff2 = int(power1/2*self.DIFF)
+        diff2 = int(power2/2*self.DIFF)
 
         pow1 = self.STOP+diff1
         pow2 = self.STOP+diff2
