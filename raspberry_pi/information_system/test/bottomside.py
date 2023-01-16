@@ -82,7 +82,7 @@ class BottomSide(Thread):
             picture = self.take_picture()
             encoded = self.encode_image(picture)
             print(encoded)
-            self.mc_socket.send(b'{}'.format(encoded))
+            self.mc_socket.send(encoded)
             print('took image')
 
         connection.close()
@@ -90,7 +90,7 @@ class BottomSide(Thread):
     def encode_image(self, img):
         encoded = cv2.imencode('.jpg', img)[1]
         stringData = base64.b64encode(encoded).decode('utf-8')
-        b64_src = 'data"image/jpeg;base64'
+        b64_src = 'data:image/jpeg;base64'
 
         stringData = b64_src + stringData
         return stringData
