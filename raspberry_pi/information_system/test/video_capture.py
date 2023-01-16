@@ -10,7 +10,7 @@ cam = cv2.VideoCapture(0)
 result, img = cam.read()
 
 if result:
-    cv2.imwrite("Desktop\\IMG.png", img)
+    cv2.imwrite("Desktop\\testimage.jpg", img)
     print("saved image")
 
 else:
