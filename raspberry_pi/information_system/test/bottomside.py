@@ -97,6 +97,7 @@ class BottomSide(Thread):
     
     def take_picture(self):
         result, img = self.cam.read()
+        img = cv2.resize(img, (16, 16))
 
         if result:
             return img
