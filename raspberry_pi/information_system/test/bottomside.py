@@ -28,14 +28,14 @@ class MockController():
 
 class BottomSide(Thread):
 
-    def __init__(self, host, video_host, mc_port=5005, video_port=9000, buffer_size=1024):
+    def __init__(self, host, video_host, mc_port=5005, video_port=5006, buffer_size=1024):
         Thread.__init__(self)
         self.host = host
         self.mc_port = mc_port
         self.buffer_size = buffer_size
 
         self.mc_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.mc_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        #self.mc_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.mc_socket.bind((self.host, self.mc_port))
 
         self.video_port = video_port

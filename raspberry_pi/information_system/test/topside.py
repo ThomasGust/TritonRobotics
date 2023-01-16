@@ -5,7 +5,7 @@ import sys
 
 class Topside(Thread):
 
-    def __init__(self, bottomside, bottomside_video, port=5005, video_port=8000, buffer_size=1024):
+    def __init__(self, bottomside, bottomside_video, port=5005, video_port=5006, buffer_size=1024):
         Thread.__init__(self)
 
         self.bottomside = bottomside
@@ -16,7 +16,7 @@ class Topside(Thread):
         self.mc_socket.connect((self.bottomside, self.port))
 
         self.video_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.video_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        #self.video_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.video_socket.bind((bottomside_video, video_port))
     
     def run(self):
