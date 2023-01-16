@@ -5,7 +5,7 @@ import sys
 
 class Topside(Thread):
 
-    def __init__(self, bottomside, port=5005, buffer_size=1024):
+    def __init__(self, bottomside, port=5005, video_port=3000, buffer_size=1024):
         Thread.__init__(self)
 
         self.bottomside = bottomside
@@ -14,8 +14,16 @@ class Topside(Thread):
 
         self.mc_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.mc_socket.connect((self.bottomside, self.port))
+
+        self.video_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.video_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.video_socket.bind((self.bottomside, video_port))
     
     def run(self):
+        self.video_socket.listen(1)
+        video_connection, video_address = self.video_socket.accept()
+        print(video_address)
+
         msg = b'THIS IS A SIMPLE TEST MESSAGE'
 
         self.mc_socket.send(msg)
@@ -26,8 +34,6 @@ class Topside(Thread):
         screen = pygame.display.set_mode((300, 300))
         clock = pygame.time.Clock()
         while True:
-            img = self.mc_socket.recv(self.bs).decode()
-            print(img)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     power = 0.0
