@@ -15,7 +15,7 @@ cam = cv2.VideoCapture(0)
 result, img = cam.read()
 
 if result:
-    imwrite("Desktop\\TESTIMAGE1.jpg", img)
+    imwrite("/home/tritonrobotics2/Desktop/TESTIMAGE1.jpg", img)
     print("saved image")
 
 else:
