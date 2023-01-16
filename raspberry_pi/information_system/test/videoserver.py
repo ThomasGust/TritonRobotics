@@ -1,5 +1,3 @@
-import socketio
-import base64
 from flask_socketio import emit, SocketIO
 from flask import Flask
 
@@ -14,4 +12,5 @@ def handle_image(data_image):
     print('received image')
 
 if __name__ == "__main__":
-    app.run()
+    h = input('Please input a valid ip address for the server: ')
+    sio.run(app, host=h, port=5005)
