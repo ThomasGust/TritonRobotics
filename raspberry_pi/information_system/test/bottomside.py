@@ -52,6 +52,13 @@ class BottomSide(Thread):
         controller = MockController()
         while on:
             data = connection.recv(self.buffer_size).decode()
+
+            #picture = self.take_picture()
+            #encoded = self.encode_image(picture)
+            #print(encoded)
+            self.mc_socket.send(b'data:image/jpeg;base64')
+            print('took image')
+
             if not data: on = False
 
             if data == "W":
@@ -79,12 +86,6 @@ class BottomSide(Thread):
             print()
             print(controller.pwm1, controller.pwm2, power)
             print()
-
-            picture = self.take_picture()
-            encoded = self.encode_image(picture)
-            #print(encoded)
-            self.mc_socket.send(b'data:image/jpeg;base64')
-            print('took image')
 
         connection.close()
     

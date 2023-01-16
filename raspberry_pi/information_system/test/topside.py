@@ -26,6 +26,8 @@ class Topside(Thread):
         screen = pygame.display.set_mode((300, 300))
         clock = pygame.time.Clock()
         while True:
+            img = self.mc_socket.recv(self.bs).decode()
+            print(img)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     power = 0.0
@@ -71,9 +73,6 @@ class Topside(Thread):
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_w or event.key == pygame.K_a or event.key == pygame.K_s or event.key == pygame.K_d:
                         self.mc_socket.send(b"P")
-                
-                img = self.mc_socket.recv(self.bs)
-                print(img)
 
             clock.tick(60)
 
