@@ -125,6 +125,6 @@ def start_server(IP):
     connection.close()
 
 if __name__ == "__main__":
-    ip_addr = input("Please put server ip address here: ")
+    ip_addr = '169.254.222.33'
     bottom = BottomSide(ip_addr)
     bottom.run()

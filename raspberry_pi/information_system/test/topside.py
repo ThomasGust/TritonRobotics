@@ -85,6 +85,6 @@ class Topside(Thread):
             clock.tick(60)
 
 if __name__ == "__main__":
-    ip_addr = input("Please provide an IP address for the server: ")
+    ip_addr = '169.254.222.33'
     top = Topside(ip_addr)
     top.run()
