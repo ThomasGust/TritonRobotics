@@ -129,6 +129,8 @@ class BottomSide(Thread):
                 if power-0.1 <= 0.0:
                     power -=0.1
             
+            print(power, controller.pwm1, controller.pwm2)
+            
             connection.send(bytes(str(power), encoding='utf-8'))
 
         connection.close()
