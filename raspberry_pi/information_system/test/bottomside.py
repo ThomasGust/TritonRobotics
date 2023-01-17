@@ -91,6 +91,8 @@ class BottomSide(Thread):
         self.mc_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.mc_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.mc_socket.bind((self.host, self.mc_port))
+
+        self.power = 1.0
     
     def run(self):
         self.mc_socket.listen(1)
@@ -100,38 +102,37 @@ class BottomSide(Thread):
 
         on = True
 
-        power = 1.0
         controller = Controller()
         while on:
             data = connection.recv(self.buffer_size).decode()
             if not data: on = False
 
             if data == "W":
-                controller.throttle_servos(power, power)
+                controller.throttle_servos(self.power, self.power)
 
             if data == "A":
-                controller.throttle_servos(-power, power)
+                controller.throttle_servos(-self.power, self.power)
 
             if data == "S":
-                controller.throttle_servos(-power, -power)
+                controller.throttle_servos(-self.power, -self.power)
                 
             if data == "D":
-                controller.throttle_servos(power, -power)
+                controller.throttle_servos(self.power, -self.power)
                 
             if data == "P":
                 controller.throttle_servos(0.0, 0.0)
                 
             if data == "KU":
-                if power+0.1 <= 1.0:
-                    power += 0.1
+                if self.power+0.1 <= 1.0:
+                    self.power += 0.1
                 
             if data == "KD":
-                if power-0.1 <= 0.0:
-                    power -=0.1
+                if self.power-0.1 <= 0.0:
+                    self.power -=0.1
             
-            print(power, controller.pwm1, controller.pwm2)
+            print(self.power, controller.pwm1, controller.pwm2)
             
-            connection.send(bytes(str(power), encoding='utf-8'))
+            connection.send(bytes(str(self.power), encoding='utf-8'))
 
         connection.close()
     """
