@@ -36,8 +36,7 @@ class Topside(Thread):
         screen = pygame.display.set_mode((300, 300))
         clock = pygame.time.Clock()
         while True:
-            data = self.mc_socket.recv(self.bs).decode()['power']
-            data = str(data)
+            data = self.mc_socket.recv(self.bs).decode()
             print(data)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
