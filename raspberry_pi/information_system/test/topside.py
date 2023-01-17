@@ -26,6 +26,9 @@ class Topside(Thread):
         screen = pygame.display.set_mode((300, 300))
         clock = pygame.time.Clock()
         while True:
+
+            img = self.mc_socket.recv(self.bs).decode()
+            print(img)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     power = 0.0
