@@ -77,11 +77,10 @@ class BottomSide(Thread):
                 if power-0.1 <= 0.0:
                     power -=0.1
             
-            if data == "I":
-                picture = self.take_picture()
-                encoded = self.encode_image(picture)
-                connection.send(bytes(encoded, encoding='utf-8'))
-                print('took image')
+            picture = self.take_picture()
+            encoded = self.encode_image(picture)
+            connection.send(bytes(encoded, encoding='utf-8'))
+            print('took image')
             print()
             print(controller.pwm1, controller.pwm2, power)
             print()
