@@ -92,7 +92,7 @@ class BottomSide(Thread):
         self.mc_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.mc_socket.bind((self.host, self.mc_port))
 
-        self.power = 1.0
+        self.power = 10
     
     def run(self):
         self.mc_socket.listen(1)
@@ -108,27 +108,27 @@ class BottomSide(Thread):
             if not data: on = False
 
             if data == "W":
-                controller.throttle_servos(self.power, self.power)
+                controller.throttle_servos(self.power/10, self.power/10)
 
             if data == "A":
-                controller.throttle_servos(-self.power, self.power)
+                controller.throttle_servos(-self.power/10, self.power/10)
 
             if data == "S":
-                controller.throttle_servos(-self.power, -self.power)
+                controller.throttle_servos(-self.power/10, -self.power/10)
                 
             if data == "D":
-                controller.throttle_servos(self.power, -self.power)
+                controller.throttle_servos(self.power/10, -self.power/10)
                 
             if data == "P":
                 controller.throttle_servos(0.0, 0.0)
                 
             if data == "KU":
-                if self.power+0.1 <= 1.0:
-                    self.power += 0.1
+                if self.power+1 <= 10:
+                    self.power += 1
                 
             if data == "KD":
-                if self.power-0.1 >= 0.0:
-                    self.power -=0.1
+                if self.power-1 >= 0:
+                    self.power -=1
             
             print(self.power, controller.pwm1, controller.pwm2)
             
