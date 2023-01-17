@@ -31,7 +31,7 @@ class Topside(Thread):
         while True:
 
             img = self.mc_socket.recv(self.bs).decode()
-            print(img)
+            print(len(img))
             encoded_data = str(list(img.split('data:image/jpeg;base64,')[1]).append("="))
             #encoded_data = str(list(encoded_data).append("="))
             nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
