@@ -82,9 +82,6 @@ class BottomSide(Thread):
             picture = self.take_picture()
             print(picture.shape)
             picture = np.moveaxis(picture, 2, 0)
-
-            plt.imshow(picture)
-            plt.show()
             encoded = self.encode_image(picture)
             connection.send(bytes(encoded, encoding='utf-8'))
             print('took image')
