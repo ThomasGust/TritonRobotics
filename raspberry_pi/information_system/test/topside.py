@@ -21,6 +21,10 @@ class Topside(Thread):
 
         self.mc_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.mc_socket.connect((self.bottomside, self.port))
+
+        pygame.init()
+        pygame.display.set_caption("Triton Robotics ROV Controller")
+        self.font = pygame.font.Font('freesansbold.ttf', 32)
     
     def run(self):
         msg = b'THIS IS A SIMPLE TEST MESSAGE'
@@ -28,8 +32,6 @@ class Topside(Thread):
         self.mc_socket.send(msg)
         
         power = 1.0
-        pygame.init()
-        pygame.display.set_caption("Triton Robotics ROV Controller")
 
         screen = pygame.display.set_mode((300, 300))
         clock = pygame.time.Clock()
@@ -77,6 +79,14 @@ class Topside(Thread):
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_w or event.key == pygame.K_a or event.key == pygame.K_s or event.key == pygame.K_d:
                         self.mc_socket.send(b"P")
+            
+            screen.fill((255, 255, 255))
+            text = self.font.render(f"Power: {power}", True, (0, 0, 0), (255, 255, 255))
+            rect = text.get_rect()
+            rect.topleft = (0, 0)
+
+            screen.blit(text, rect)
+            pygame.display.update()
 
             clock.tick(60)
 
