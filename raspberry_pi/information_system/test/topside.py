@@ -35,6 +35,7 @@ class Topside(Thread):
         while True:
 
             img = self.mc_socket.recv(self.bs).decode()+"="
+            print(img)
             file_like = BytesIO(base64.b64decode(img))
             img = Image.open(file_like)
             print(len(img))
