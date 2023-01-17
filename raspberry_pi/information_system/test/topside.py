@@ -68,11 +68,13 @@ class Topside(Thread):
                     
                     elif event.key == pygame.K_UP:
                         if power+0.1 < 1.0:
+                            print("KEYUP")
                             self.mc_socket.send(b"KU")
                             power += 0.1
                     
                     elif event.key == pygame.K_DOWN:
                         if power-0.1 > 0.0:
+                            print("KEYDOWN")
                             self.mc_socket.send(b"KD")
                             power -= 0.1
                 
