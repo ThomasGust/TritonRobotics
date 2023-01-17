@@ -54,7 +54,7 @@ class BottomSide(Thread):
             picture = self.take_picture()
             encoded = self.encode_image(picture)
             #print(encoded)
-            connection.send(b'data:image/jpeg;base64')
+            connection.send(bytes(encoded, encoding='utf-8'))
             print('took image')
             data = connection.recv(self.buffer_size).decode()
             if not data: on = False
