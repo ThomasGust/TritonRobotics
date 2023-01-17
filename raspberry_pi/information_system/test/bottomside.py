@@ -127,7 +127,7 @@ class BottomSide(Thread):
                     self.power += 1
                 
             if data == "KD":
-                if self.power-1 >= 0:
+                if self.power-1 >= -0.1:
                     self.power -=1
             
             print(self.power, controller.pwm1, controller.pwm2)
