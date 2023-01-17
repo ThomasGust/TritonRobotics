@@ -3,6 +3,7 @@ from threading import Thread
 import cv2
 import base64
 import matplotlib.pyplot as plt
+import numpy as np
 
 class MockController():
 
@@ -80,6 +81,8 @@ class BottomSide(Thread):
             
             picture = self.take_picture()
             print(picture.shape)
+            picture = np.moveaxis(picture, 2, 0)
+
             plt.imshow(picture)
             plt.show()
             encoded = self.encode_image(picture)
