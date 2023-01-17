@@ -33,17 +33,6 @@ class Topside(Thread):
         screen = pygame.display.set_mode((300, 300))
         clock = pygame.time.Clock()
         while True:
-
-            img = self.mc_socket.recv(self.bs).decode()+"="
-            print(img)
-            file_like = BytesIO(base64.b64decode(img))
-            img = Image.open(file_like)
-            print(len(img))
-            print(img)
-
-
-            cv2.imshow('TEST', img)
-    
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     power = 0.0
