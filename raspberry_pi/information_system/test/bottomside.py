@@ -79,6 +79,7 @@ class BottomSide(Thread):
                     power -=0.1
             
             picture = self.take_picture()
+            print(picture.shape)
             plt.imshow(picture)
             plt.show()
             encoded = self.encode_image(picture)
