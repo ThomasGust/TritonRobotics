@@ -11,14 +11,15 @@ class Controller():
 
         self.p1, self.p2 = p1, p2
 
-        self.setup(self.p1, self.p2)
-
         self.FORW = forw
         self.STOP = stop
         self.REVE = reve
         self.INIT = init
 
         self.DIFF = self.FORW - self.REVE
+
+        
+        self.setup(self.p1, self.p2)
 
     def get_pins(self, p1=27, p2=22):
         self.pi.set_mode(p1, pigpio.OUTPUT)
