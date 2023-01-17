@@ -32,8 +32,8 @@ class Topside(Thread):
 
             img = self.mc_socket.recv(self.bs).decode()
 
-            encoded_data = img.split('data:image/jpeg;base64')[1]
-            nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
+            #encoded_data = img.split('data:image/jpeg;base64')[1]
+            nparr = np.fromstring(base64.b64decode(img), np.uint8)
             img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
             cv2.imshow('TEST', img)
