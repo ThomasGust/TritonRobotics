@@ -115,7 +115,5 @@ class Controller():
             clock.tick(60)
 
 if __name__ == "__main__":
-    #controller = Controller()
+    controller = Controller()
     #controller.wasd()
-    pi = pigpio.pi()
-    pi.set_mode(22, pigpio.OUTPUT)
