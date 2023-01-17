@@ -36,8 +36,6 @@ class Topside(Thread):
         screen = pygame.display.set_mode((300, 300))
         clock = pygame.time.Clock()
         while True:
-            data = self.mc_socket.recv(self.bs).decode()
-            print(data)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     power = 0.0
@@ -81,13 +79,13 @@ class Topside(Thread):
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_w or event.key == pygame.K_a or event.key == pygame.K_s or event.key == pygame.K_d:
                         self.mc_socket.send(b"P")
-            
+        
             screen.fill((255, 255, 255))
-            text = self.font.render(f"Power: {power}", True, (0, 0, 0), (255, 255, 255))
-            rect = text.get_rect()
-            rect.topleft = (0, 0)
+            #text = self.font.render(f"Power: {power}", True, (0, 0, 0), (255, 255, 255))
+            #rect = text.get_rect()
+            #rect.topleft = (0, 0)
 
-            screen.blit(text, rect)
+            #screen.blit(text, rect)
             pygame.display.update()
 
             clock.tick(60)
