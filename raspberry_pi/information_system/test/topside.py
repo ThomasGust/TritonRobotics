@@ -2,6 +2,9 @@ import socket
 from threading import Thread
 import pygame
 import sys
+import cv2
+import base64
+import numpy as np
 
 class Topside(Thread):
 
@@ -28,7 +31,13 @@ class Topside(Thread):
         while True:
 
             img = self.mc_socket.recv(self.bs).decode()
-            print(img)
+
+            encoded_data = img.split(',')[1]
+            nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
+            img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
+            cv2.imshow('TEST', img)
+    
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     power = 0.0
