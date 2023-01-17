@@ -73,8 +73,6 @@ class Controller():
         diff1 = int(power1/2*self.DIFF)
         diff2 = int(power2/2*self.DIFF)
 
-        print(diff1, diff2)
-
         self.pwm1 = self.STOP+diff1
         self.pwm2 = self.STOP+diff2
 
