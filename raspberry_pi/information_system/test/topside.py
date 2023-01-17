@@ -5,7 +5,7 @@ import sys
 import cv2
 import base64
 import numpy as np
-from io import StringIO
+from io import StringIO, BytesIO
 from PIL import Image
 
 
@@ -35,7 +35,7 @@ class Topside(Thread):
         while True:
 
             img = self.mc_socket.recv(self.bs).decode()+"="
-            file_like = StringIO(img)
+            file_like = BytesIO(base64.b64decode(img))
             img = Image.open(file_like)
             print(len(img))
             print(img)
