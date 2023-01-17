@@ -30,7 +30,7 @@ class MockController():
 
 class BottomSide(Thread):
 
-    def __init__(self, host, mc_port=5005, buffer_size=1024):
+    def __init__(self, host, mc_port=5005, buffer_size=524288):
         Thread.__init__(self)
         self.host = host
         self.mc_port = mc_port

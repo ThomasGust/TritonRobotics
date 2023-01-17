@@ -8,7 +8,7 @@ import numpy as np
 
 class Topside(Thread):
 
-    def __init__(self, bottomside, port=5005, buffer_size=1024):
+    def __init__(self, bottomside, port=5005, buffer_size=524288):
         Thread.__init__(self)
 
         self.bottomside = bottomside
