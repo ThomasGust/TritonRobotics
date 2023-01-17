@@ -123,7 +123,7 @@ class BottomSide(Thread):
                 controller.throttle_servos(0.0, 0.0)
                 
             if data == "KU":
-                if self.power+1 <= 10:
+                if self.power+1 <= 10.1:
                     self.power += 1
                 
             if data == "KD":
