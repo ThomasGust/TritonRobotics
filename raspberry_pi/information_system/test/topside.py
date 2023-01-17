@@ -70,8 +70,6 @@ class Topside(Thread):
                     if event.key == pygame.K_w or event.key == pygame.K_a or event.key == pygame.K_s or event.key == pygame.K_d:
                         self.mc_socket.send(b"P")
 
-                self.mc_socket.send(b"I")
-
             clock.tick(60)
 
 if __name__ == "__main__":
