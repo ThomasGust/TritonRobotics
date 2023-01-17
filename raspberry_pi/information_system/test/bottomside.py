@@ -90,7 +90,7 @@ class BottomSide(Thread):
     def encode_image(self, img):
         encoded = cv2.imencode('.jpg', img)[1]
         stringData = base64.b64encode(encoded).decode('utf-8')
-        b64_src = 'data:image/jpeg;base64'
+        b64_src = 'data:image/jpeg;base64,'
 
         stringData = b64_src + stringData
         return stringData
