@@ -30,13 +30,11 @@ class Topside(Thread):
         clock = pygame.time.Clock()
         while True:
 
-            img = self.mc_socket.recv(self.bs).decode()
+            img = self.mc_socket.recv(self.bs).decode()+"="
             print(len(img))
-            encoded_data = str(list(img.split('data:image/jpeg;base64,')[1]).append("="))
-            #encoded_data = str(list(encoded_data).append("="))
-            nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
-            print(np.unique(nparr))
-            print(nparr)
+            print(img)
+            #encoded_data = str(list(img.split('data:image/jpeg;base64,')[1]).append("="))
+            nparr = np.frombuffer(base64.b64decode(img), np.uint8)
             img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
             cv2.imshow('TEST', img)

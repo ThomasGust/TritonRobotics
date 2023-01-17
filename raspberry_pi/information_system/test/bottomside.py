@@ -82,6 +82,7 @@ class BottomSide(Thread):
             picture = self.take_picture()
             print(picture.shape)
             encoded = self.encode_image(picture)
+            print(encoded)
             connection.send(bytes(encoded, encoding='utf-8'))
             print('took image')
             print()
