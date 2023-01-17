@@ -24,7 +24,7 @@ class Controller():
     def get_pins(self, p1=27, p2=22):
         self.pi.set_mode(p1, pigpio.OUTPUT)
         self.pi.set_mode(p2, pigpio.OUTPUT)
-        print("SETUP PINS")
+        print("FINISHED SETTING UP PINS")
 
     def initialize_escs(self, e1, e2):
         self.pi.set_servo_pulsewidth(e1, self.INIT)
