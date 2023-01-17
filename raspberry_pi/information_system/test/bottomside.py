@@ -53,7 +53,7 @@ class BottomSide(Thread):
         power = 1.0
         controller = MockController()
         while on:
-            connection.send({'power':bytes(str(power), encoding='utf-8')})
+            connection.send(bytes({'power':power}))
             data = connection.recv(self.buffer_size).decode()
             if not data: on = False
 
