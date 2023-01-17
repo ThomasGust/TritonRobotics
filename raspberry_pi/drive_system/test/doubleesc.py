@@ -24,12 +24,15 @@ class Controller():
     def get_pins(self, p1=27, p2=22):
         self.pi.set_mode(p1, pigpio.OUTPUT)
         self.pi.set_mode(p2, pigpio.OUTPUT)
+        print("SETUP PINS")
 
     def initialize_escs(self, e1, e2):
         self.pi.set_servo_pulsewidth(e1, self.INIT)
         time.sleep(8)
         self.pi.set_servo_pulsewidth(e2, self.INIT)
         time.sleep(8)
+        print("INITIALIZED ESCS")
+
     
     def setup(self, p1, p2):
         self.get_pins(p1, p2)
@@ -114,7 +117,12 @@ class Controller():
                             print(power)
             
             clock.tick(60)
+        
+    def test(self):
+        print("BEGINNING TEST")
+        self.forward_full(4)
+        print("END OF TEST")
 
 if __name__ == "__main__":
     controller = Controller()
-    #controller.wasd()
+    controller.test()
