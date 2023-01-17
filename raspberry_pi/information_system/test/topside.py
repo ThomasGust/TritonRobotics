@@ -4,6 +4,8 @@ import pygame
 import sys
 import cv2
 import base64
+from PIL import Image
+import io
 import numpy as np
 
 class Topside(Thread):
@@ -32,9 +34,11 @@ class Topside(Thread):
 
             img = self.mc_socket.recv(self.bs).decode()
 
-            #encoded_data = img.split('data:image/jpeg;base64')[1]
-            nparr = np.fromstring(base64.b64decode(img), np.uint8)
-            img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+            sbuf = io.StringIO()
+            sbuf.write(img)
+            b = io.BytesIO(base64.b64decode(img))
+            pimg = Image.open(b)
+            pimg.show("SHOWN IMAGE")
 
             cv2.imshow('TEST', img)
     
