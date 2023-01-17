@@ -11,8 +11,6 @@ class Controller():
 
         self.p1, self.p2 = p1, p2
 
-        self.pi.set_mode(p1, pigpio.OUTPUT)
-        self.pi.set_mode(p2, pigpio.OUTPUT)
         self.setup(self.p1, self.p2)
 
         self.FORW = forw
@@ -22,6 +20,10 @@ class Controller():
 
         self.DIFF = self.FORW - self.REVE
 
+    def get_pins(self, p1=27, p2=22):
+        self.pi.set_mode(p1, pigpio.OUTPUT)
+        self.pi.set_mode(p2, pigpio.OUTPUT)
+
     def initialize_escs(self, e1, e2):
         self.pi.set_servo_pulsewidth(e1, self.INIT)
         time.sleep(8)
@@ -29,6 +31,7 @@ class Controller():
         time.sleep(8)
     
     def setup(self, p1, p2):
+        self.get_pins(p1, p2)
         self.initialize_escs(p1, p2)
 
     
@@ -112,5 +115,7 @@ class Controller():
             clock.tick(60)
 
 if __name__ == "__main__":
-    controller = Controller()
-    controller.wasd()
+    #controller = Controller()
+    #controller.wasd()
+    pi = pigpio.pi()
+    pi.set_mode(22, pigpio.OUTPUT)
