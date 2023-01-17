@@ -81,7 +81,6 @@ class BottomSide(Thread):
             
             picture = self.take_picture()
             print(picture.shape)
-            picture = np.moveaxis(picture, 2, 0)
             encoded = self.encode_image(picture)
             connection.send(bytes(encoded, encoding='utf-8'))
             print('took image')
@@ -97,6 +96,7 @@ class BottomSide(Thread):
         b64_src = 'data:image/jpeg;base64,'
 
         stringData = b64_src + stringData
+        print(len(stringData))
         return stringData
     
     def take_picture(self):
