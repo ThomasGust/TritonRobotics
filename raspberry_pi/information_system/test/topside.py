@@ -36,6 +36,7 @@ class Topside(Thread):
             encoded_data = str(list(encoded_data).append("="))
             nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
             print(np.unique(nparr))
+            print(nparr)
             img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
             cv2.imshow('TEST', img)
