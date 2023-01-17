@@ -117,5 +117,5 @@ class Controller():
 if __name__ == "__main__":
     #controller = Controller()
     #controller.wasd()
-    pi = pigpio.pi()
+    pi = pigpio.pi('tritonrobotics2')
     pi.set_mode(22, pigpio.OUTPUT)
