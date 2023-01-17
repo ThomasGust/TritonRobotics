@@ -83,7 +83,7 @@ class BottomSide(Thread):
             print(picture.shape)
             encoded = self.encode_image(picture)
             print(encoded)
-            connection.send(bytes(encoded, encoding='utf-8'))
+            connection.send(bytes(encoded, encoding='ascii'))
             print('took image')
             print()
             print(controller.pwm1, controller.pwm2, power)
