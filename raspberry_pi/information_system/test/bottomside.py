@@ -2,6 +2,7 @@ import socket
 from threading import Thread
 import cv2
 import base64
+import matplotlib.pyplot as plt
 
 class MockController():
 
@@ -78,6 +79,7 @@ class BottomSide(Thread):
                     power -=0.1
             
             picture = self.take_picture()
+            plt.imshow(picture)
             encoded = self.encode_image(picture)
             connection.send(bytes(encoded, encoding='utf-8'))
             print('took image')
