@@ -29,6 +29,7 @@ class Topside(Thread):
         
         power = 1.0
         pygame.init()
+        pygame.display.set_caption("Triton Robotics ROV Controller")
 
         screen = pygame.display.set_mode((300, 300))
         clock = pygame.time.Clock()
