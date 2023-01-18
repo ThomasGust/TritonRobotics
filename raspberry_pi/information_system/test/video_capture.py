@@ -1,4 +1,5 @@
 import cv2
+import base64
 
 cam = cv2.VideoCapture(0)
 
@@ -14,6 +15,9 @@ def capture(name):
 
     if result:
         cv2.imwrite(f"/home/tritonrobotics2/Desktop/{name}.jpg", img)
+        retval, buffer = cv2.imencode('.jpg', img)
+        pg_as_text = base64.b64encode(buffer)
+        print(pg_as_text)
         print("saved image")
 
     else:
