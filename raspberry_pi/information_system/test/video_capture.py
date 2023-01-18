@@ -18,4 +18,5 @@ def capture(name):
         print("NO RESULT")
 
 if __name__ == "__main__":
-    capture("TESTIMAGE1")
+    name = input("Please enter an image name here without an extension: ")
+    capture(name)
