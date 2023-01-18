@@ -13,7 +13,7 @@ class BottomSide(Thread):
 
         self.mc_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         print("CREATED SOCKET")
-        #self.mc_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.mc_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.mc_socket.bind((self.host, self.mc_port))
         print("BOUND SOCKET")
 
