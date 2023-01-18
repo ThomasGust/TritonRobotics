@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 class BottomSide(Thread):
 
-    def __init__(self, host, mc_port=5005, buffer_size=99724288):
+    def __init__(self, host, mc_port=5005, buffer_size=1):
         Thread.__init__(self)
         self.host = host
         self.mc_port = mc_port
