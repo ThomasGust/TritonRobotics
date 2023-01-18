@@ -6,7 +6,7 @@ from utils import get_camera, encode_image, snap
 
 class Topside(Thread):
 
-    def __init__(self, bottomside, port=5005, buffer_size=1):
+    def __init__(self, bottomside, port=5005, buffer_size=100_000_0):
         Thread.__init__(self)
 
         self.bottomside = bottomside
