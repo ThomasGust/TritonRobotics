@@ -19,7 +19,7 @@ def capture(name):
         pg_as_text = base64.b64encode(buffer)
         decoded = base64.b64decode(pg_as_text)
 
-        with open(f'{name}.jpg', "wb") as f:
+        with open(f'/home/tritonrobotics2/Desktop/{name}.jpg', "wb") as f:
             f.write(decoded)
         print("saved image")
 
