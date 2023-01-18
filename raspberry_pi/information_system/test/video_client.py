@@ -12,12 +12,15 @@ class BottomSide(Thread):
         self.buffer_size = buffer_size
 
         self.mc_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.mc_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        print("CREATED SOCKET")
+        #self.mc_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.mc_socket.bind((self.host, self.mc_port))
+        print("BOUND SOCKET")
 
         self.power = 10
     
     def run(self):
+        print("started listening")
         self.mc_socket.listen(1)
         connection, address = self.mc_socket.accept()
         print("CONNECTED")
