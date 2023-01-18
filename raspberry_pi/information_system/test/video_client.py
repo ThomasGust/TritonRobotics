@@ -30,6 +30,7 @@ class BottomSide(Thread):
         print(len(img))
         #plt.imshow(img)
         #plt.show()
+        img = decode_image(img)
         print("RECEIVED IMAGE")
         connection.close()
 
