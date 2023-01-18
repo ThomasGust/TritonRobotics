@@ -25,7 +25,7 @@ class BottomSide(Thread):
         self.mc_socket.listen(1)
         connection, address = self.mc_socket.accept()
         print("CONNECTED")
-        img = connection.recv(self.buffer_size).decode()
+        img = decode_image(connection.recv(self.buffer_size).decode())
         plt.imshow(img)
         plt.show()
         print(img)
