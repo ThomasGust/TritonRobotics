@@ -27,4 +27,4 @@ def encode_image(img):
     #decoded = base64.b64decode(pg_as_text)
 
 def decode_image(b64_img):
-    return cv2.cvtColor(imread(BytesIO(base64.b64decode(b64_img))), cv2.COLOR_RGB2BGR)
+    return imread(BytesIO(base64.b64decode(b64_img))), cv2.COLOR_RGB2BGR
