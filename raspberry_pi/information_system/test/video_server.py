@@ -22,6 +22,7 @@ class Topside(Thread):
         print("INITIALIAZED CAMERA")
     def run(self):
         msg = encode_image(snap(self.camera))
+        print(len(msg))
         print("Beginning to send image over ethernet")
         self.mc_socket.send(msg)
         print("FINISHED SENDING IMAGE")
