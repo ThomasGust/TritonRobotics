@@ -5,7 +5,7 @@ from imageio import imread
 from PIL import ImageFile
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
-def get_camera(h=1080, w=1920):
+def get_camera(h=1080//4, w=1920//4):
     cam = cv2.VideoCapture(0)
 
     codec = 0x47504A4D  # MJPG
