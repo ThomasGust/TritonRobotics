@@ -2,7 +2,9 @@ import cv2
 from io import BytesIO
 import base64
 from imageio import imread
+from PIL import ImageFile
 
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 def get_camera(h=1080, w=1920):
     cam = cv2.VideoCapture(0)
 
