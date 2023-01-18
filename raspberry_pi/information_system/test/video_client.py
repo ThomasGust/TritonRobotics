@@ -31,6 +31,6 @@ class BottomSide(Thread):
 
 
 if __name__ == "__main__":
-    ip_addr = '169.254.82.153'
+    ip_addr = '169.254.222.33'
     bottom = BottomSide(ip_addr)
     bottom.run()
