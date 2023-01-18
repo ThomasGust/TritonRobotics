@@ -1,6 +1,7 @@
 import socket
 from utils import decode_image
 from threading import Thread
+import matplotlib.pyplot as plt
     
 
 class BottomSide(Thread):
@@ -25,6 +26,8 @@ class BottomSide(Thread):
         connection, address = self.mc_socket.accept()
         print("CONNECTED")
         img = connection.recv(self.buffer_size).decode()
+        plt.imshow(img)
+        plt.show()
         print(img)
         print("RECEIVED IMAGE")
         connection.close()
