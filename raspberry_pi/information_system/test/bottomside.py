@@ -131,8 +131,6 @@ class BottomSide(Thread):
                     self.power -=1
             
             print(self.power, controller.pwm1, controller.pwm2)
-            
-            connection.send(bytes(str(self.power), encoding='utf-8'))
 
         connection.close()
     """
