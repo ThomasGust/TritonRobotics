@@ -15,15 +15,14 @@ class Topside(Thread):
 
         print("SOCKET INIT")
         self.mc_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        print("SOCKET CONNECT")
         self.mc_socket.connect((self.bottomside, self.port))
         print("SOCKET CONNECT COMPLETED")
 
-        #self.camera = get_camera()
+        self.camera = get_camera()
         print("INITIALIAZED CAMERA")
     def run(self):
-        #msg = encode_image(snap(self.camera))
-        msg = b'TESTING'
+        msg = encode_image(snap(self.camera))
+        #msg = b'TESTING'
         print("Beginning to send image over ethernet")
         self.mc_socket.send(msg)
         print("FINISHED SENDING IMAGE")
