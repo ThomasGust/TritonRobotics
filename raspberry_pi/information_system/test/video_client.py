@@ -26,6 +26,7 @@ class BottomSide(Thread):
         connection, address = self.mc_socket.accept()
         print("CONNECTED")
         #time.sleep(10)
+        time.sleep(0.5)
         img = connection.recv(self.buffer_size)
         print(img)
         print(len(img))
