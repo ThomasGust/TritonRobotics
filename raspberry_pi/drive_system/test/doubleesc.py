@@ -6,7 +6,7 @@ import sys
 
 class Controller():
 
-    def __init__(self, p1=27, p2=22, forw=1900, stop=1500, reve=1100, init=1500):
+    def __init__(self, p1=13, p2=12, forw=1900, stop=1500, reve=1100, init=1500):
         self.pi = pigpio.pi()
 
         self.p1, self.p2 = p1, p2
@@ -21,7 +21,7 @@ class Controller():
         
         self.setup(self.p1, self.p2)
 
-    def get_pins(self, p1=27, p2=22):
+    def get_pins(self, p1=13, p2=12):
         self.pi.set_mode(p1, pigpio.OUTPUT)
         self.pi.set_mode(p2, pigpio.OUTPUT)
         print("FINISHED SETTING UP PINS")
