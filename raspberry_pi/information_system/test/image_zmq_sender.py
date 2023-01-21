@@ -1,15 +1,9 @@
 import socket
-import time
-from imutils.video import VideoStream
 import imagezmq
 
-sender = imagezmq.ImageSender(connect_to="169.254.222.33:5005")
+sender = imagezmq.ImageSender(connect_to='tcp://169.254.82.153:5555')
 
-name = socket.gethostname()
+sender_name = socket.gethostname() # send your hostname with each image
 
-picam = VideoStream().start()
-time.sleep(2.0)
-while True:
-    img = picam.read()
-    print("SENT IMAGE")
-    sender.send_image_reqrep(name, img)
+image = open("test1.jpg",'rb')
+sender.send_image(sender_name, image)
