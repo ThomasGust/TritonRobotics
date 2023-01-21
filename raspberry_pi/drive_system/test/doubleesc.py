@@ -78,6 +78,7 @@ class Controller():
         self.pi.set_servo_pulsewidth(self.p2, pow2)
 
     def wasd(self):
+        print("START WASD")
         power = 1.0
         pygame.init()
 
@@ -92,15 +93,19 @@ class Controller():
                 if event.type == pygame.KEYDOWN:
 
                     if event.key == pygame.K_w:
+                        print("W")
                         self.throttle_servos(power, power)
                     
                     if event.key == pygame.K_s:
+                        print("S")
                         self.throttle_servos(-power, -power)
                     
                     if event.key == pygame.K_a:
+                        print("A")
                         self.throttle_servos(-power, power)
                     
                     if event.key == pygame.K_d:
+                        print("D")
                         self.throttle_servos(power, -power)
                     
                     if event.key == pygame.K_k:
@@ -109,11 +114,13 @@ class Controller():
                         sys.exit()
                     
                     if event.key == pygame.K_UP:
+                        print("UP")
                         if power+0.002 < 1.0:
                             power += 0.002
                             print(power)
                     
                     if event.key == pygame.K_DOWN:
+                        print("DOWN")
                         if power-0.002 > 0.0:
                             power -= 0.002
                             print(power)
