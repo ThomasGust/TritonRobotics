@@ -12,4 +12,5 @@ img = cv2.imread("test1.png")
 
 while True:
     img = webcam.read()
+    print("TOOK IMAGE")
     sender.send_image_reqrep(sender_name, img)
