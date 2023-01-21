@@ -32,7 +32,7 @@ class MockController():
 
 class Controller():
 
-    def __init__(self, p1=27, p2=22, forw=1900, stop=1500, reve=1100, init=1500):
+    def __init__(self, p1=12, p2=13, forw=1900, stop=1500, reve=1100, init=1500):
         self.pi = pigpio.pi()
 
         self.p1, self.p2 = p1, p2
@@ -50,7 +50,7 @@ class Controller():
         
         self.setup(self.p1, self.p2)
 
-    def get_pins(self, p1=27, p2=22):
+    def get_pins(self, p1=12, p2=13):
         self.pi.set_mode(p1, pigpio.OUTPUT)
         self.pi.set_mode(p2, pigpio.OUTPUT)
         print("FINISHED SETTING UP PINS")
@@ -108,71 +108,38 @@ class BottomSide(Thread):
             if not data: on = False
 
             if data == "W":
+                print("W")
                 controller.throttle_servos(self.power/10, self.power/10)
 
             if data == "A":
+                print("A")
                 controller.throttle_servos(-self.power/10, self.power/10)
 
             if data == "S":
+                print("S")
                 controller.throttle_servos(-self.power/10, -self.power/10)
                 
             if data == "D":
+                print("D")
                 controller.throttle_servos(self.power/10, -self.power/10)
                 
             if data == "P":
+                print("P")
                 controller.throttle_servos(0.0, 0.0)
                 
             if data == "KU":
+                print("KU")
                 if self.power+1 <= 10.1:
                     self.power += 1
                 
             if data == "KD":
+                print("KD")
                 if self.power-1 >= -0.1:
                     self.power -=1
             
             print(self.power, controller.pwm1, controller.pwm2)
 
         connection.close()
-    """
-    def encode_image(self, img):
-        encoded = cv2.imencode('.jpg', img)[1]
-        stringData = base64.b64encode(encoded).decode('utf-8')
-        b64_src = 'data:image/jpeg;base64,'
-
-        stringData = b64_src + stringData
-        print(len(stringData))
-        return stringData
-    
-    def take_picture(self):
-        result, img = self.cam.read()
-        #img = cv2.resize(img, (, 1))
-
-        if result:
-            return img
-        else:
-            return None
-
-    """
-    
-def start_server(IP):
-    #IP = 'PUT SERVER IP (RASPI) HERE'
-    PORT = 5005
-    BS = 1024
-
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.bind((IP, PORT))
-    sock.listen(1)
-
-    connection, address = sock.accept()
-
-    print(f"ADDR: {address}")
-
-    while 1:
-        data = connection.recv(BS)
-        if not data: break
-        print(f"received: {data}")
-        connection.send(data)
-    connection.close()
 
 if __name__ == "__main__":
     ip_addr = '169.254.222.33'
