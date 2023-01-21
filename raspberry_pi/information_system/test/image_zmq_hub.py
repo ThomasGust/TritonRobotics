@@ -1,6 +1,7 @@
 import cv2
 import imagezmq
 hub = imagezmq.ImageHub()
+print("INITIALIZED HUB")
 while True:
     name, frame = hub.recv_image()
     cv2.imshow(name, frame)
