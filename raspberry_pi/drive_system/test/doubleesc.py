@@ -28,8 +28,10 @@ class Controller():
 
     def initialize_escs(self, e1, e2):
         self.pi.set_servo_pulsewidth(e1, self.INIT)
+        print('START INIT 1')
         time.sleep(8)
         self.pi.set_servo_pulsewidth(e2, self.INIT)
+        print("START INIIT 2")
         time.sleep(8)
         print("INITIALIZED ESCS")
 
@@ -121,10 +123,11 @@ class Controller():
     def test(self):
         print("BEGINNING TEST")
         self.throttle_servos(0.2, 0.2)
-        time.sleep(3)
+        time.sleep(10)
         self.stop()
         print("END OF TEST")
 
 if __name__ == "__main__":
     controller = Controller()
+    controller.test()
     controller.wasd()
