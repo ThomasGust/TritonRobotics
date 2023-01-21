@@ -2,11 +2,6 @@ import socket
 from threading import Thread
 import pygame
 import sys
-import cv2
-import base64
-import numpy as np
-from io import StringIO, BytesIO
-from PIL import Image
 
 
 
@@ -83,11 +78,6 @@ class Topside(Thread):
                         self.mc_socket.send(b"P")
         
             screen.fill((255, 255, 255))
-            #text = self.font.render(f"Power: {power}", True, (0, 0, 0), (255, 255, 255))
-            #rect = text.get_rect()
-            #rect.topleft = (0, 0)
-
-            #screen.blit(text, rect)
             pygame.display.update()
 
             clock.tick(60)
