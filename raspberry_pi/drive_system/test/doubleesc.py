@@ -120,7 +120,9 @@ class Controller():
         
     def test(self):
         print("BEGINNING TEST")
-        self.forward_full(4)
+        self.throttle_servos(0.2, 0.2)
+        time.sleep(3)
+        self.stop()
         print("END OF TEST")
 
 if __name__ == "__main__":
