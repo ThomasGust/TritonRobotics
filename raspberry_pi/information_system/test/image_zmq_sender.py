@@ -11,4 +11,5 @@ picam = VideoStream().start()
 time.sleep(2.0)
 while True:
     img = picam.read()
+    print("SENT IMAGE")
     sender.send_image_reqrep(name, img)
