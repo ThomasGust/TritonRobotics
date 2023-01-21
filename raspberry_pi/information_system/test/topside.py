@@ -40,7 +40,7 @@ class Topside(Thread):
             sender_name, image = image_hub.recv_image()
 
             cv2.imshow("THIS IS A TEST", image)
-            cv2.waitKey(1)
+            #cv2.waitKey(1)
 
             image_hub.send_reply(b'OK')
             for event in pygame.event.get():
