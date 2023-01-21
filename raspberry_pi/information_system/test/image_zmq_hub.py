@@ -6,7 +6,7 @@ print("INITIALIZED IMAGE HUB")
 
 while True:
     sender_name, image = image_hub.recv_image()
-    
+    print(image.shape)
 
     cv2.imshow("THIS IS A TEST", image)
     cv2.waitKey(1)

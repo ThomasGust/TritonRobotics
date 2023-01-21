@@ -2,6 +2,8 @@ import socket
 from threading import Thread
 import pygame
 import sys
+import imagezmq
+import cv2
 
 
 
@@ -30,7 +32,17 @@ class Topside(Thread):
 
         screen = pygame.display.set_mode((300, 300))
         clock = pygame.time.Clock()
+
+        image_hub = imagezmq.ImageHub()
+        print("INITIALIZED IMAGE HUB")
         while True:
+
+            sender_name, image = image_hub.recv_image()
+
+            cv2.imshow("THIS IS A TEST", image)
+            cv2.waitKey(1)
+
+            image_hub.send_reply(b'OK')
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     power = 0.0

@@ -6,6 +6,8 @@ import base64
 #import numpy as np
 import time
 import pigpio
+import imagezmq
+import cv2
 
 class MockController():
 
@@ -103,9 +105,15 @@ class BottomSide(Thread):
         on = True
 
         controller = Controller()
+        sender = imagezmq.ImageSender(connect_to='tcp://169.254.150.25:5555')
+
+        webcam = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+        sender_name = socket.gethostname() # send your hostname with each image
         while on:
             data = connection.recv(self.buffer_size).decode()
-            if not data: on = False
+            #if not data: on = True
+            img = webcam.read()
+            sender.send_image_reqrep(sender_name, img)
 
             if data == "W":
                 print("W")

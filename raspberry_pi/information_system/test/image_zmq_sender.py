@@ -6,7 +6,8 @@ from imutils.video import VideoStream
 
 sender = imagezmq.ImageSender(connect_to='tcp://169.254.150.25:5555')
 
-webcam = VideoStream().start()
+#webcam = VideoStream().start()
+webcam = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 sender_name = socket.gethostname() # send your hostname with each image
 img = cv2.imread("test1.png")
 
