@@ -3,7 +3,7 @@ import time
 from imutils.video import VideoStream
 import imagezmq
 
-sender = imagezmq.ImageSender(connect_to="tcp://169.254.222.33:5005")
+sender = imagezmq.ImageSender(connect_to="169.254.222.33:5005")
 
 name = socket.gethostname()
 
