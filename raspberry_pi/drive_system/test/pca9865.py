@@ -2,7 +2,7 @@ from adafruit_servokit import ServoKit
 import time
 
 
-class PCA9865:
+class MotorController:
 
     def __init__(self, escs=[0, 1, 2, 3, 4, 5], gimbal=7):
         self.escs = escs
