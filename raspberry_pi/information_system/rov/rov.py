@@ -19,7 +19,8 @@ class ImageSender(Thread):
         Thread.__init__(self)
         self.webcam = VideoStream().start()
         self.name = name
-        
+    
+
     def run(self, client_ip, client_vid_port):
         sender = imagezmq.ImageSender(connect_to=f"{client_ip}:{client_vid_port}")
         
@@ -32,4 +33,7 @@ class ImageSender(Thread):
 class Rov:
 
     def __init__(self):
-        self.image_sender = ImageSender(name="MainROV")
+        self.image_sender = ImageSender(name="TritonROV")
+    
+    def control_loop(self):
+        self.image_sender.start()
