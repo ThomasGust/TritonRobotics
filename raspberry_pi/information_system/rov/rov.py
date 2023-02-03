@@ -35,5 +35,12 @@ class Rov:
     def __init__(self):
         self.image_sender = ImageSender(name="TritonROV")
     
-    def control_loop(self):
-        self.image_sender.start()
+    def control_loop(self, client_ip, client_vid_port):
+        self.image_sender.start(client_ip, client_vid_port)
+
+if __name__ == "__main__":
+
+    client_ip = ""
+    client_vid_port = 5555
+    rov = Rov()
+    rov.control_loop(client_ip, client_vid_port)
