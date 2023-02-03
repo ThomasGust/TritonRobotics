@@ -25,3 +25,4 @@ class MotorController:
     def throttle_escs(self, throttles=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0]):
         for i, e in enumerate(self.escs):
             self.controller[e].throttle = throttles[i]
+    
