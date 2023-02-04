@@ -30,7 +30,6 @@ class Top:
 
 
 if __name__ == "__main__":
-
     topside = Top()
     topside.control_loop()
         
