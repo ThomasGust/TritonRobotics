@@ -47,8 +47,16 @@ class MotorController(Thread):
         self.motor_e = MotorT200(motor_channels[4])
         self.motor_f = MotorT200(motor_channels[5])
 
+        self.front = [self.motor_a, self.motor_b]
+        self.mid = [self.motor_e, self.motor_f]
+        self.back = [self.motor_c, self.motor_d]
+
+        self.grid = [self.motor_a, self.motor_b, self.motor_c, self.motor_d]
+        self.thrusters = [self.motor_a, self.motor_b, self.motor_c, self.motor_d, self.motor_e, self.motor_f]
+
         self.camera_gimbal = CameraGimbal(camera_gimbal)
-        
+
+
         
 
 
