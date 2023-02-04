@@ -15,14 +15,16 @@ class MotorController:
 
 class ImageSender(Thread):
     
-    def __init__(self, name):
+    def __init__(self, client_ip, client_vid_port, name):
         Thread.__init__(self)
         self.webcam = VideoStream().start()
         self.name = name
+        self.client_ip = client_ip
+        self.client_vid_port = client_vid_port
     
 
-    def run(self, client_ip, client_vid_port):
-        sender = imagezmq.ImageSender(connect_to=f"{client_ip}:{client_vid_port}")
+    def run(self):
+        sender = imagezmq.ImageSender(connect_to=f"{self.client_ip}:{self.client_vid_port}")
         
         on = True
 
@@ -32,15 +34,14 @@ class ImageSender(Thread):
 
 class Rov:
 
-    def __init__(self):
-        self.image_sender = ImageSender(name="TritonROV")
+    def __init__(self, client_ip, client_vid_port, name):
+        self.image_sender = ImageSender(client_ip, client_vid_port, name)
     
-    def control_loop(self, client_ip, client_vid_port):
-        self.image_sender.start(client_ip, client_vid_port)
+    def control_loop(self):
+        self.image_sender.start()
 
 if __name__ == "__main__":
-
     client_ip = ""
     client_vid_port = 5555
-    rov = Rov()
-    rov.control_loop(client_ip, client_vid_port)
+    rov = Rov(client_ip, client_vid_port, "MainROV")
+    rov.control_loop()
