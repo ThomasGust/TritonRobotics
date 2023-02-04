@@ -1,16 +1,55 @@
 from threading import Thread
 from imutils.video import VideoStream
 import imagezmq
+import zmq
+import adafruit_pca9685
+import time
+import sys
+import os
 
-class Motor:
 
-    def __init__(self):
-        pass
+class CameraGimbal:
 
-class MotorController:
+    def __init__(self, channel):
+        self.channel = channel
 
-    def __init__(self):
-        pass
+class MotorT200:
+
+    def __init__(self, channel):
+        self.channel = channel
+        
+
+class MotorController(Thread):
+
+    #AS OF RIGHT NOW, I AM UNSURE OF MOTOR CONFIGURATION FOR THE UD MOTORS
+
+    #CURRENT MOTOR CONTROL CONFIGURATION (*=camera):
+    """
+    A_________B
+    |   |*|   |
+    |E  | |  F|
+    |   | |   |
+    C_________D
+    """
+
+    def __init__(self, motor_channels=[0, 1, 2, 3, 4, 5], camera_gimbal=6):
+        Thread.__init__(self)
+        self.controller = adafruit_pca9685.PCA9685()
+
+        assert len(motor_channels) == 6
+
+        self.motor_a = MotorT200(motor_channels[0])
+        self.motor_b = MotorT200(motor_channels[1])
+        
+        self.motor_c = MotorT200(motor_channels[2])
+        self.motor_d = MotorT200(motor_channels[3])
+
+        self.motor_e = MotorT200(motor_channels[4])
+        self.motor_f = MotorT200(motor_channels[5])
+
+        self.camera_gimbal = CameraGimbal(camera_gimbal)
+        
+        
 
 
 class ImageSender(Thread):
