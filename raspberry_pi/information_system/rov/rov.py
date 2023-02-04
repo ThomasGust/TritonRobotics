@@ -12,11 +12,18 @@ class CameraGimbal:
 
     def __init__(self, channel):
         self.channel = channel
+    
+    def set_angle(self, angle):
+        pass
+    
 
 class MotorT200:
 
     def __init__(self, channel):
         self.channel = channel
+    
+    def throttle(self, t):
+        pass
         
 
 class MotorController(Thread):
@@ -56,6 +63,11 @@ class MotorController(Thread):
 
         self.camera_gimbal = CameraGimbal(camera_gimbal)
 
+    def throttle_thrusters(self, throttles):
+        assert len(throttles) == 6
+
+        for i, t in enumerate(throttles):
+            self.thrusters[i].throttle(t)
 
         
 
