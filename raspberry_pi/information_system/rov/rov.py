@@ -41,8 +41,14 @@ class MotorController(Thread):
        /           \ 
     """
 
-    def __init__(self, motor_channels=[0, 1, 2, 3, 4, 5], camera_gimbal=6):
+    def __init__(self, server_ip, server_port, motor_channels=[0, 1, 2, 3, 4, 5], camera_gimbal=6, context=zmq.Context()):
+        
         Thread.__init__(self)
+
+        self.zmq_context = context
+        self.socket = self.zmq_context.socket(zmq.REP)
+        self.socket.connect(f"tcp://{server_ip}:{server_port}")
+
         self.controller = adafruit_pca9685.PCA9685()
 
         assert len(motor_channels) == 6
@@ -73,6 +79,14 @@ class MotorController(Thread):
 
         for i, t in enumerate(throttles):
             self.thrusters[i].throttle(t)
+    
+    def run(self):
+        on = True
+        
+        while on:
+            message = self.socket.recv()
+            print(message)
+            self.socket.send(b"World!")
 
         
 

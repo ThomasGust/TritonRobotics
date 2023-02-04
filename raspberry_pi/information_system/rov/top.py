@@ -21,7 +21,7 @@ class MotorControllerSender(Thread):
         index = 0
         while on:
             print(f"Sending Request {index} ...")
-            self.socket.send(b"Hello!")
+            self.socket.send(b"Hello")
 
             message =self. socket.recv()
             print(f"Received Reply {index} [ {message} ]")
