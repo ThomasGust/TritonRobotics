@@ -6,7 +6,28 @@ import zmq
 
 
 class MotorControllerSender(Thread):
-    pass
+    
+
+    def __init__(self, rov_ip, port, context):
+        Thread().__init__(self)
+
+        self.socket = context.socket(zmq.REP)
+        self.socket.bind(f"tcp://{rov_ip}:{port}")
+    
+    def run(self):
+        #RUN IS IN A TEST MODE FOR ZEROMQ MESSAGE PASSING
+        on = True
+
+        index = 0
+        while on:
+            print(f"Sending Request {index} ...")
+            self.socket.send(b"Hello!")
+
+            message =self. socket.recv()
+            print(f"Received Reply {index} [ {message} ]")
+
+            index += 1
+
 
 
 class ImageReceiver(Thread):
@@ -16,7 +37,6 @@ class ImageReceiver(Thread):
         self.hub = imagezmq.ImageHub(open_port=f'tcp://{top_ip}:{port}')
     
     def run(self):
-
         on = True
 
         while on:
@@ -29,7 +49,13 @@ class Top:
 
     def __init__(self, video_receiver_port=5555):
         self.video_receiver_port = video_receiver_port
-        self.image_receiver = ImageReceiver(socket.gethostbyname(socket.gethostname()), video_receiver_port)
+
+        self.hostname = socket.gethostbyname(socket.gethostname())
+
+        self.zmq_context = zmq.Context()
+
+
+        self.image_receiver = ImageReceiver(self.hostname, video_receiver_port)
 
     def control_loop(self):
         self.image_receiver.start()

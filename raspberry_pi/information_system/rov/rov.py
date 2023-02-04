@@ -32,11 +32,13 @@ class MotorController(Thread):
 
     #CURRENT MOTOR CONTROL CONFIGURATION (*=camera):
     """
-    A_________B
-    |   |*|   |
-    |E  | |  F|
-    |   | |   |
-    C_________D
+       \           /
+        A_________B
+        |   |*|   |
+        |E  | |  F|
+        |   | |   |
+        C_________D
+       /           \ 
     """
 
     def __init__(self, motor_channels=[0, 1, 2, 3, 4, 5], camera_gimbal=6):
@@ -63,6 +65,9 @@ class MotorController(Thread):
 
         self.camera_gimbal = CameraGimbal(camera_gimbal)
 
+    def set_camera_gimbal(self, angle):
+        self.camera_gimbal.set_angle(angle)
+    
     def throttle_thrusters(self, throttles):
         assert len(throttles) == 6
 
