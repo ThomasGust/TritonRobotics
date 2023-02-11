@@ -22,14 +22,25 @@ class MotorT200:
     def __init__(self, channel, controller):
         self.channel = channel
         self.controller = controller
+
+        self.stop = 1500
+        self.full_forward = 1900
+        self.full_reverse = 1100
+
+        self.DIFF = self.full_forward - self.full_reverse
+
+        self.pwm = self.stop
     
     def bootup_signal(self):
-        boot = 1500
+        boot = self.stop
         self.controller[self.channel].frequency = 100
         self.controller[self.channel].duty_cycle = boot
     
     def throttle(self, t):
-        pass
+        assert type(t) == float and t <= 1.0 and t >= -1.0
+        diff = t/2*self.DIFF
+        self.pwm = self.stop+diff
+        self.controller[self.channel].duty_cycle = self.pwm
         
 
 class MotorController(Thread):
