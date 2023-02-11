@@ -6,6 +6,8 @@ import zmq
 import json
 import pygame
 from pygame.locals import *
+import math
+    
 
 class MotorControllerSender(Thread):
     
@@ -55,6 +57,13 @@ class MotorControllerSender(Thread):
                     print(event)
                     "XBOX 360: (3, 4):right stick, (0, 1): left st;ick, left_trigger:2, right_trigger:5"
 
+                    if event.axis == 0:
+                        pass
+
+                    if event.axis == 1:
+                        self.et = event.value
+                        self.ft = event.value
+
                     if event.axis == 3:
                         self.xt = event.value
                     
@@ -91,6 +100,7 @@ class ImageReceiver(Thread):
             print(image.shape)
 
 
+
 class Top:
 
     def __init__(self, motor_controller_port, video_receiver_port=5555):
@@ -108,6 +118,12 @@ class Top:
         self.motor_controller.start()
 
 
+def joy_to_diff_drive(joy_x, joy_y):
+    left = joy_x * math.sqrt(2.0)/2.0 + joy_y * math.sqrt(2.0)/2.0
+    right = -joy_x * math.sqrt(2.0)/2.0 + joy_y * math.sqrt(2.0)/2.0
+    return [left, right]
+
 if __name__ == "__main__":
-    topside = Top()
-    topside.control_loop()
+    #topside = Top()
+    #topside.control_loop()
+    print(joy_to_diff_drive(0.1, 0.1))
