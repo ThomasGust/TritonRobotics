@@ -127,6 +127,26 @@ class MotorController(Thread):
         a, b, c, d, e, f = self.full_up_throttles
         self.throttle_thrusters([a, b, c, d, e, f])
 
+    def get_throttle_x(self, t):
+        throttles = [elem*t for elem in [1.0, 1.0, 1.0, 1.0, 0.0, 0.0]]
+        return throttles
+
+    def get_throttle_y(self, t):
+        throttles = [elem*t for elem in [1.0, -1.0, -1.0, 1.0, 0.0, 0.0]]
+        return throttles
+    
+    def get_throttle_xy(self, xt, yt):
+        x_throttle = self.get_throttle_x(xt)
+        y_throttle = self.get_throttle_y(yt)
+        xy_throttle = []
+
+        for i in range(len(x_throttle)):
+            s = x_throttle[i] + y_throttle[i]
+            xy_throttle.append(s/2.0)
+        
+        return xy_throttle
+    
+
     def set_camera_gimbal(self, angle):
         self.camera_gimbal.set_angle(angle)
     
@@ -136,8 +156,9 @@ class MotorController(Thread):
         for i, t in enumerate(throttles):
             self.thrusters[i].throttle(t)
         
-    def xy_throttle(self, angle):
-        pass
+    def xy_throttle(self, joy_x, joy_y):
+        throttles = self.get_throttle_xy(joy_x, joy_y)
+        self.throttle_thrusters(throttles)
     
     def run(self):
         on = True
