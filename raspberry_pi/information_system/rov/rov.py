@@ -19,6 +19,8 @@ class CameraGimbal:
 
 class MotorT200:
 
+    # Someone still needs to test and work on this, I am not sure if I am using the correct syntax for esc control. This could be something for @AI-YT to do
+
     def __init__(self, channel, controller):
         self.channel = channel
         self.controller = controller
@@ -93,6 +95,38 @@ class MotorController(Thread):
 
         self.camera_gimbal = CameraGimbal(camera_gimbal)
 
+        self.full_forward_grid_throttles = (-1.0, -1.0, 1.0, 1.0, 0.0, 0.0)
+        self.full_right_grid_throttles = (-1.0, 1.0, 1.0, -1.0, 0.0, 0.0)
+        self.full_left_grid_throttles = (1.0, -1.0, -1.0, 1.0, 0.0, 0.0)
+        self.full_back_grid_throttles = (1.0, 1.0, -1.0, -1.0, 0.0, 0.0)
+
+        self.full_down_throttles = (0.0, 0.0, 0.0, 0.0, 1.0, 1.0)
+        self.full_up_throttles = (0.0, 0.0, 0.0, 0.0, -1.0, -1.0)
+
+    def full_forward(self):
+        a, b, c, d, e, f = self.full_forward_grid_throttles
+        self.throttle_thrusters([a, b, c, d, e, f])
+    
+    def full_right(self):
+        a, b, c, d, e, f = self.full_right_grid_throttles
+        self.throttle_thrusters([a, b, c, d, e, f])
+    
+    def full_left(self):
+        a, b, c, d, e, f = self.full_left_grid_throttles
+        self.throttle_thrusters([a, b, c, d, e, f])
+    
+    def full_back(self):
+        a, b, c, d, e, f = self.full_back_grid_throttles
+        self.throttle_thrusters([a, b, c, d, e, f])
+    
+    def full_down(self):
+        a, b, c, d, e, f = self.full_down_throttles
+        self.throttle_thrusters([a, b, c, d, e, f])
+    
+    def full_up(self):
+        a, b, c, d, e, f = self.full_up_throttles
+        self.throttle_thrusters([a, b, c, d, e, f])
+
     def set_camera_gimbal(self, angle):
         self.camera_gimbal.set_angle(angle)
     
@@ -101,6 +135,9 @@ class MotorController(Thread):
 
         for i, t in enumerate(throttles):
             self.thrusters[i].throttle(t)
+        
+    def xy_throttle(self, angle):
+        pass
     
     def run(self):
         on = True
