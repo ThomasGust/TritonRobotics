@@ -6,6 +6,7 @@ import adafruit_pca9685
 import time
 import sys
 import os
+import json
 
 
 class CameraGimbal:
@@ -51,13 +52,17 @@ class MotorController(Thread):
 
     #CURRENT MOTOR CONTROL CONFIGURATION (*=camera):
     """
+
+        /         \ 
        \           /
         A_________B
         |   |*|   |
         |E  | |  F|
         |   | |   |
-        C_________D
+     \  C_________D /
        /           \ 
+    
+       Direction of thrust (the way the motor pushes the robot) is shown by the secondary arrows.
     """
 
     def __init__(self, server_ip, server_port, motor_channels=[0, 1, 2, 3, 4, 5], camera_gimbal=6, context=zmq.Context()):
@@ -145,6 +150,13 @@ class MotorController(Thread):
             xy_throttle.append(s/2.0)
         
         return xy_throttle
+
+    def get_throttle_xyz(self, xt, yt, te, tf):
+        xy_throttles = self.get_throttle_xy(xt, yt)
+
+        xy_throttles[5], xy_throttles[6] = te, tf
+
+        return xy_throttles
     
 
     def set_camera_gimbal(self, angle):
@@ -164,8 +176,16 @@ class MotorController(Thread):
         on = True
         
         while on:
-            message = self.socket.recv()
+            message = json.loads(self.socket.recv())
             print(message)
+            xax = message['x']
+            yax = message['y']
+            ezax = message['e']
+            fzax = message['f']
+
+            throttles = self.get_throttle_xyz(xax, yax, ezax, fzax)
+            self.throttle_thrusters(throttles)
+            
             self.socket.send(b"World!")
 
 

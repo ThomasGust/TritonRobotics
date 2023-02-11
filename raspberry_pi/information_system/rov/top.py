@@ -3,7 +3,9 @@ from threading import Thread
 import cv2
 import socket
 import zmq
-
+import json
+import pygame
+from pygame.locals import *
 
 class MotorControllerSender(Thread):
     
@@ -11,15 +13,59 @@ class MotorControllerSender(Thread):
     def __init__(self, rov_ip, port, context):
         Thread().__init__(self)
 
+        pygame.init()
         self.socket = context.socket(zmq.REP)
         self.socket.bind(f"tcp://{rov_ip}:{port}")
-    
+        pygame.joystick.init()
+
+        self.joysticks = [pygame.joystick.Joystick(i) for i in range(pygame.joystick.get_count())]
+
+        self.xt = 0.0
+        self.yt = 0.0
+        self.et = 0.0
+        self.ft = 0.0
+
+    def format_message(self, x, y, e, f):
+        message = {"x":x,
+                   "y":y,
+                   "e":e,
+                   "f":f}
+        message = json.dumps(message)
+        return message
+
+
     def run(self):
-        #RUN IS IN A TEST MODE FOR ZEROMQ MESSAGE PASSING
+        #ADD DEADZONE FOR JOYSTICK INPUT
         on = True
 
         index = 0
         while on:
+
+            for event in pygame.event.get():
+                if event.type == JOYBUTTONDOWN:
+                    print(event)
+
+                    if event.button == 0:
+                        print("0")
+
+                if event.type == JOYBUTTONDOWN:
+                    print(event)
+                
+                if event.type == JOYAXISMOTION:
+                    print(event)
+                    "XBOX 360: (3, 4):right stick, (0, 1): left st;ick, left_trigger:2, right_trigger:5"
+
+                    if event.axis == 3:
+                        self.xt = event.value
+                    
+                    if event.axis == 4:
+                        self.yt = event.value
+
+
+
+                if event.type == JOYHATMOTION:
+                    print(event)
+
             print(f"Sending Request {index} ...")
             self.socket.send(b"Hello")
 
