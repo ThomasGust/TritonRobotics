@@ -19,8 +19,14 @@ class CameraGimbal:
 
 class MotorT200:
 
-    def __init__(self, channel):
+    def __init__(self, channel, controller):
         self.channel = channel
+        self.controller = controller
+    
+    def bootup_signal(self):
+        boot = 1500
+        self.controller[self.channel].frequency = 100
+        self.controller[self.channel].duty_cycle = boot
     
     def throttle(self, t):
         pass
@@ -51,6 +57,7 @@ class MotorController(Thread):
 
         self.controller = adafruit_pca9685.PCA9685()
 
+
         assert len(motor_channels) == 6
 
         self.motor_a = MotorT200(motor_channels[0])
@@ -68,6 +75,10 @@ class MotorController(Thread):
 
         self.grid = [self.motor_a, self.motor_b, self.motor_c, self.motor_d]
         self.thrusters = [self.motor_a, self.motor_b, self.motor_c, self.motor_d, self.motor_e, self.motor_f]
+
+        for thruster in self.thrusters:
+            thruster.bootup_signal()
+        time.sleep(8)
 
         self.camera_gimbal = CameraGimbal(camera_gimbal)
 
@@ -87,8 +98,6 @@ class MotorController(Thread):
             message = self.socket.recv()
             print(message)
             self.socket.send(b"World!")
-
-        
 
 
 class ImageSender(Thread):
