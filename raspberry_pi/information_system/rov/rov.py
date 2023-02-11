@@ -112,11 +112,13 @@ class ImageSender(Thread):
 
 class Rov:
 
-    def __init__(self, client_ip, client_vid_port, name):
+    def __init__(self, client_ip, client_vid_port, client_control_port, name):
         self.image_sender = ImageSender(client_ip, client_vid_port, name)
+        self.motor_controller = MotorController(client_ip, client_control_port)
     
     def control_loop(self):
         self.image_sender.start()
+        self.motor_controller.start()
 
 if __name__ == "__main__":
     client_ip = ""

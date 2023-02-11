@@ -47,18 +47,19 @@ class ImageReceiver(Thread):
 
 class Top:
 
-    def __init__(self, video_receiver_port=5555):
+    def __init__(self, motor_controller_port, video_receiver_port=5555):
         self.video_receiver_port = video_receiver_port
 
         self.hostname = socket.gethostbyname(socket.gethostname())
 
         self.zmq_context = zmq.Context()
 
-
         self.image_receiver = ImageReceiver(self.hostname, video_receiver_port)
+        self.motor_controller = MotorControllerSender(self.hostname, motor_controller_port, self.zmq_context)
 
     def control_loop(self):
         self.image_receiver.start()
+        self.motor_controller.start()
 
 
 if __name__ == "__main__":
